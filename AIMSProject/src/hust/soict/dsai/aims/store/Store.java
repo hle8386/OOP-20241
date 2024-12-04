@@ -1,36 +1,46 @@
 package hust.soict.dsai.aims.store;
+
 import java.util.ArrayList;
-import hust.soict.dsai.aims.disc.DigitalVideoDisc;
+
+import hust.soict.dsai.aims.media.Media;
 
 public class Store {
-    private ArrayList<DigitalVideoDisc> itemsInStore; 
+    private ArrayList<Media> itemsInStore = new ArrayList<>();
 
-    public Store() {
-        this.itemsInStore = new ArrayList<>();
-    }
-
-    public void addDVD(DigitalVideoDisc dvd) {
-        if (dvd != null) {
-            itemsInStore.add(dvd);
-            System.out.println("DVD added to store: " + dvd.getTitle());
+    public void addMedia(Media media) {
+        if (itemsInStore.contains(media)) {
+            System.out.println("Item " + media.getTitle() + " is already in the store.");
         } else {
-            System.out.println("Cannot add a null DVD.");
+            itemsInStore.add(media);
+            System.out.println("Added item " + media.getTitle() + " to the store.");
+        }
+    }
+    public void addMedia(Media[] mediaList) {
+        for (Media media : mediaList) {
+            this.addMedia(media);
         }
     }
 
-    public void removeDVD(DigitalVideoDisc dvd) {
-        if (itemsInStore.contains(dvd)) {
-            itemsInStore.remove(dvd);
-            System.out.println("DVD removed from store: " + dvd.getTitle());
+    public void removeMedia(Media media) {
+        if (!itemsInStore.contains(media)) {
+            System.out.println("Item " + media.getTitle() + " is not in the store.");
         } else {
-            System.out.println("DVD not found in store: " + (dvd != null ? dvd.getTitle() : "null"));
+            itemsInStore.remove(media);
+            System.out.println("Removed item " + media.getTitle() + " from the store.");
+        }
+    }
+    public void removeMedia(Media[] mediaList) {
+        for (Media media : mediaList) {
+            this.removeMedia(media);
         }
     }
 
-    public void displayStore() {
-        System.out.println("DVDs currently in store:");
-        for (DigitalVideoDisc dvd : itemsInStore) {
-            System.out.println("- " + dvd.getTitle());
+    public void listMedia() {
+        System.out.println("*************************STORE*************************");
+        System.out.println("Available Items:");
+        for (Media media : itemsInStore) {
+           System.out.println("- " + media.toString());
         }
+        System.out.println("*******************************************************");
     }
 }
